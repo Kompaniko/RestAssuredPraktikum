@@ -35,5 +35,17 @@ public class PraktikumAssured {
                 .post("/api/signup")
                 // проверка статуса
                 .then().statusCode(201);
+
+        // Post запрос на авторизацию signin с теми же параметрами
+
+        Response response = given().
+                header("Content-type", "application/json")
+                .body(json)
+                .post("/api/signin");
+        response.then().assertThat()
+                // проверка, что пришедший токен в ответ не пуст
+                .body("token", notNullValue())
+                .and()
+                .statusCode(200);
     }
 }
