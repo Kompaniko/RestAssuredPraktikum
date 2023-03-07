@@ -37,7 +37,7 @@ public class PraktikumAssured {
                 .then().statusCode(201);
 
         // Post запрос на авторизацию signin с теми же параметрами
-
+        // авторизация с паролем которые только что зарегестрированы
         Response response = given().
                 header("Content-type", "application/json")
                 .body(json)
@@ -47,5 +47,13 @@ public class PraktikumAssured {
                 .body("token", notNullValue())
                 .and()
                 .statusCode(200);
+
+        // попытка регистрации с адресом который существует
+
+        given().
+                header("Content-type", "application/json")
+                .body(json).post("/api/signup")
+                .then()
+                .statusCode(409);
     }
 }
